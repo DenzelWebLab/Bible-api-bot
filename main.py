@@ -3,8 +3,9 @@ import asyncio
 
 from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
+from aiogram.client.session.aiohttp import AiohttpSession
 
-from config import token
+from config import token, PROXY
 from commands.bot_list_cmd import private
 from handlers.call_back_handler import router_callback_handler
 from handlers.main_handler import router_main_handler
@@ -35,7 +36,8 @@ dp.include_router(commands_router)
 
 
 async def main() -> None:
-    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN)
+    session = AiohttpSession(proxy=PROXY)
+    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN, session=session)
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
 
