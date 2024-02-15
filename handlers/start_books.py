@@ -29,7 +29,7 @@ async def create_book_kb(callback: CallbackQuery, bot: Bot):
         await callback.message.edit_text(text='Виберіть книгу', reply_markup=builder.as_markup())
     except Exception as e:
         await bot.send_message(admin_id, text=f'error: {e}')
-        await callback.message.reply('⚠️Ой, халепа щось зламалось ⏳')
+        await callback.message.reply('⚠️Ой, халепа щось зламалось')
     finally:
         await callback.answer('📖')
 
@@ -50,7 +50,7 @@ async def create_index_kb(callback: CallbackQuery, bot: Bot, callback_data: Call
         await callback.message.edit_text(text='Виберіть розділ', reply_markup=builder.as_markup())
     except Exception as e:
         await bot.send_message(admin_id, text=f'error: {e}')
-        await callback.message.reply('⚠️Ой, халепа щось зламалось ⏳')
+        await callback.message.reply('⚠️Ой, халепа щось зламалось')
     except KeyError:
         await callback.message.answer('error')
     finally:
@@ -73,7 +73,7 @@ async def create_sections_kb(callback: CallbackQuery, bot: Bot, callback_data: C
         await callback.message.answer('Виберіть вірш', reply_markup=builder.as_markup())
     except Exception as e:
         await bot.send_message(admin_id, text=f'error: {e}')
-        await callback.message.reply('⚠️Ой, халепа щось зламалось ⏳')
+        await callback.message.reply('⚠️Ой, халепа щось зламалось')
     finally:
         await callback.answer('📖')
 
@@ -87,6 +87,6 @@ async def get_verses(callback: CallbackQuery, bot: Bot, callback_data: CallFilte
         await callback.message.answer(answer, reply_markup=start_menu)
     except Exception as e:
         await bot.send_message(admin_id, text=f'error: {e}')
-        await callback.message.reply('⚠️Ой, халепа щось зламалось ⏳')
+        await callback.message.reply('⚠️Ой, халепа щось зламалось')
     finally:
         await callback.answer('📖')
