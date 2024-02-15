@@ -1,6 +1,5 @@
 import asyncio
-import logging
-# import sys
+
 
 from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
@@ -17,8 +16,6 @@ from commands.run_stop import start_bot, stop_bot
 from admin.admin_handler import admin_router
 from commands.get_commands import commands_router
 
-
-# ALLOWED_UPDATES = ['message', 'edited_message']
 
 TOKEN = token
 router = Router()
@@ -38,17 +35,16 @@ dp.include_router(commands_router)
 
 
 async def main() -> None:
-    # Ініціалізуйте екземпляр бота з режимом аналізу за замовчуванням, який буде передано всім викликам API
     bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN)
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
 
     await bot.delete_webhook(drop_pending_updates=True)
     await bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
-    # І диспетчеризація запущених подій
     await dp.start_polling(bot)
-
+print('run')
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     asyncio.run(main())
+
+    print('botbot stop')
