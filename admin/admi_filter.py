@@ -1,6 +1,5 @@
 from aiogram.filters.base import Filter
 from aiogram.types import Message
-from aiogram import Router
 
 
 class MyFilters(Filter):

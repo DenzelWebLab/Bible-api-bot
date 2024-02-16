@@ -5,7 +5,7 @@ from aiogram.types import CallbackQuery, Message
 from states.save_state_bot import StateWeather
 from cllasses.weather_info import Weather
 from keyboards.inlaine_button import start_menu
-from config import admin_id
+from config import ADMIN_ID
 
 
 weather_router = Router()
@@ -20,7 +20,7 @@ async def start_weather(callback: CallbackQuery, bot: Bot, state: FSMContext):
         await callback.message.answer(text='🔻Опція погода\nВедіть назву міста:')
 
     except Exception as e:
-        await bot.send_message(admin_id, f'error: {e}')
+        await bot.send_message(ADMIN_ID, f'error: {e}')
         await callback.message.answer('⚠️Невірний формат,ведіть назву міста!!!')
     finally:
         await callback.answer('🌤')
@@ -33,6 +33,6 @@ async def next_step(message: Message, bot: Bot, state: FSMContext):
         text_answer = wh.get_description(city=name_city)
         await message.answer(text_answer, reply_markup=start_menu)
     except Exception as e:
-        await bot.send_message(admin_id, f'error: {e}', reply_markup=start_menu)
+        await bot.send_message(ADMIN_ID, f'error: {e}', reply_markup=start_menu)
         await message.reply('⚠️Ой, халепа щось зламалось, вже працюєм над виправленням⏳')
     await state.clear()

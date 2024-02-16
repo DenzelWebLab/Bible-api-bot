@@ -1,25 +1,15 @@
 import requests
 
-from config import api_key
-
-code_to_smile = {
-            "Ясно": "☀️",
-            "Хмарно": "☁️",
-            "Дощ": "🌧",
-            "Дощик": "🌦",
-            "Гроза": "⛈",
-            "Сніг": "❄️",
-            "Туман": "😶‍🌫️"
-        }
+from config import API_KEY, WEATHER_URL
 
 
 class Weather:
     def __init__(self):
-        self.api_key = api_key
-        self.url = 'https://api.openweathermap.org'
+        self.api_key = API_KEY
+        self.url = WEATHER_URL
 
     def get_description(self, city: str):
-        url = self.url + f"/data/2.5/weather?q={city}&lang={'ua'}&appid={api_key}&units=metric"
+        url = self.url + f"/data/2.5/weather?q={city}&lang={'ua'}&appid={API_KEY}&units=metric"
         response = requests.get(url)
         data = response.json()
         main = data['weather'][0]['description']

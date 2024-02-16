@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
 from aiogram.client.session.aiohttp import AiohttpSession
 
-from config import token, PROXY
+from config import TOKEN, PROXY
 from commands.bot_list_cmd import private
 from handlers.call_back_handler import router_callback_handler
 from handlers.main_handler import router_main_handler
@@ -18,7 +18,7 @@ from admin.admin_handler import admin_router
 from commands.get_commands import commands_router
 
 
-TOKEN = token
+TOKEN = TOKEN
 router = Router()
 dp = Dispatcher()
 dp.startup()
@@ -36,8 +36,8 @@ dp.include_router(commands_router)
 
 
 async def main() -> None:
-    session = AiohttpSession(proxy=PROXY)
-    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN, session=session)
+    # session = AiohttpSession(proxy=PROXY)
+    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN)
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
 

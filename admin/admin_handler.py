@@ -5,7 +5,7 @@ from aiogram.fsm.context import FSMContext
 from data_bases.bot_users import BibleData
 
 from admin.admin_keyboard import admin_button
-from config import admin_id
+from config import ADMIN_ID
 from admin.state_admin import StateAdmins
 
 admin_router = Router()
@@ -14,7 +14,7 @@ db = BibleData()
 
 @admin_router.message(Command('admin'))
 async def create_admin_kb(message: Message):
-    if message.from_user.id == admin_id:
+    if message.from_user.id == ADMIN_ID:
         await message.answer('Hi admin! select options:', reply_markup=admin_button)
     else:
         await message.reply('Ви не адміністратор бота🔒')

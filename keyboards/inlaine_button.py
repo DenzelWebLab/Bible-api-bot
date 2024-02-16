@@ -29,10 +29,19 @@ select_menu_button = InlineKeyboardMarkup(
     ]
 )
 
-edit_button = InlineKeyboardMarkup(
+edit_button_word = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text='Оновити🔄', callback_data='word'),
+            InlineKeyboardButton(text='Меню📁', callback_data='menu')
+        ]
+    ]
+)
+
+edit_button_index = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Оновити🔄', callback_data='index'),
             InlineKeyboardButton(text='Меню📁', callback_data='menu')
         ]
     ]

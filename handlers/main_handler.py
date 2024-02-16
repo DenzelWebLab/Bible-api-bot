@@ -6,7 +6,7 @@ from data_bases.bot_users import BibleData
 from cllasses.query import SearchQuery
 from keyboards.inlaine_button import start_menu
 from keyboards.inlaine_button import delete_button
-from config import contact
+from config import CONTACT
 
 
 db = BibleData()
@@ -35,7 +35,7 @@ async def get_copyright(callback: CallbackQuery):
 
 @router_main_handler.callback_query(F.data == 'info')
 async def get_info(callback: CallbackQuery):
-    await callback.message.answer(text=f'*Є питання* [пиши]({contact})', reply_markup=delete_button)
+    await callback.message.answer(text=f'*Є питання* [пиши]({CONTACT})', reply_markup=delete_button)
     await callback.answer('❓')
 
 
