@@ -1,9 +1,9 @@
+from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
-from aiogram import Router, F, Bot
+from aiogram import Router, F
 
 from states.save_state_bot import StateIndex
-from config import ADMIN_ID
 from cllasses.index_ import IndexSearch
 from keyboards.inlaine_button import edit_button_index
 
@@ -16,25 +16,39 @@ index_next_router = Router()
 async def start_index(callback: CallbackQuery, state: FSMContext):
     await state.set_state(StateIndex.index)
     await callback.message.answer(text='🔻Вибрана опція пошуку по індексу\n'
-                                       '❗️Для коректного вводу  використати великі англійські літери\n'
+                                       '❗️Для коректного вводу  використати  англійські літери\n'
                                        '❗️Приклад вводу: MAT.1.1\n'
                                        '❗️Три літери це індекс книги\n'
                                        '❗️Перша цифра це номер глави\n'
-                                       '❗️Друга цифра це номер вірша')
+                                       '❗️Друга цифра це номер вірша\n'
+                                       '❗️для відміни /cancel')
 
     await callback.answer('🔍')
 
 
+@index_start_router.message(Command("cancel"))
+@index_start_router.message(F.text.casefold() == "cancel")
+async def cancel_handler(message: Message, state: FSMContext) -> None:
+    current_state = await state.get_state()
+    if current_state is None:
+        return
+    await state.clear()
+    await message.answer(text='Відмінено', reply_markup=edit_button_index)
+
+
 @index_start_router.message(StateIndex.index)
-async def next_index_step(message: Message, bot: Bot, state: FSMContext):
+async def next_index_step(message: Message, state: FSMContext):
     index = message.text.strip()
-    answer_text = index_s.get_index(index=index)
     try:
-        await message.answer(text=answer_text, reply_markup=edit_button_index)
-    except KeyError as e:
-        await bot.send_message(ADMIN_ID, text=f'error: {e}')
-
-    finally:
+        await state.update_data(index=index)
+        answer_text = index_s.get_index(index=index)
+        await message.answer(answer_text, reply_markup=edit_button_index)
         await state.clear()
+    except KeyError:
+        await message.reply(text='Невірний формат', reply_markup=edit_button_index)
 
+
+@index_start_router.message(StateIndex.index)
+async def process_unknown_write_bots(message: Message):
+    await message.reply(text='Я тебе не розумію :(', reply_markup=edit_button_index)
 
