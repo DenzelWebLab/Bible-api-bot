@@ -20,10 +20,14 @@ async def get_list_index(message: Message):
 
 @commands_router.message(Command('help'))
 async def get_help(message: Message):
-    await message.answer(text='Якщо не спрацювала кнопка просто перезавантаж бота /start', reply_markup=delete_button)
+    await message.answer(text='Не спрацювала кнопка або команда:\n'
+                              'Перезавантаж UaBible /start та повтори пізніше\n', reply_markup=delete_button)
 
 
 @commands_router.message(Command('password'))
 async def get_password(message: Message):
     await message.answer(text='Опція створити пароль:\n'
-                              'Бот може створити надійний пароль\nСтворити пароль?', reply_markup=choice_button)
+                              'Надійний пароль це:\n'
+                              '1.Довжина паролю не менше 8 символів.\n'
+                              '2.Присутні цифри та великі і маленькі букви.\n'
+                              'Створити пароль?', reply_markup=choice_button)
