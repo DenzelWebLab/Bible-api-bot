@@ -34,8 +34,8 @@ dp.include_router(commands_router)
 
 
 async def main() -> None:
-    session = AiohttpSession(proxy=PROXY)
-    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN, session=session)
+    # session = AiohttpSession(proxy=PROXY)
+    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN)
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
 

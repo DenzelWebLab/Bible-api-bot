@@ -1,7 +1,6 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram import Router, F, Bot
-from aiogram.types import CallbackQuery
-
+from aiogram.types import CallbackQuery, Message
 
 from cllasses.main_book import BibleTree
 from cllasses.call_filters import CallFilter
@@ -29,7 +28,7 @@ async def create_book_kb(callback: CallbackQuery, bot: Bot):
         await callback.answer('📖')
     except KeyError:
         await callback.message.reply('Технічна помилка повторіть пізніше :( /help')
-        await callback.answer()
+        # await callback.answer()
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'my'))
@@ -49,7 +48,7 @@ async def create_index_kb(callback: CallbackQuery, bot: Bot, callback_data: Call
         await callback.answer('📖')
     except KeyError:
         await callback.message.reply('Технічна помилка повторіть пізніше :( /help')
-        await callback.answer()
+        # await callback.answer()
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'section'))
@@ -69,7 +68,6 @@ async def create_sections_kb(callback: CallbackQuery, bot: Bot, callback_data: C
         await callback.answer('📖')
     except KeyError:
         await callback.message.reply('Технічна помилка повторіть пізніше :( /help')
-        await callback.answer()
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'verses'))
@@ -80,7 +78,8 @@ async def get_verses(callback: CallbackQuery, bot: Bot, callback_data: CallFilte
     try:
         await callback.message.answer(answer, reply_markup=start_menu)
         await callback.answer('📖')
-    except KeyError:
-        await callback.message.reply('Технічна помилка повторіть пізніше :( /help')
-        await callback.answer()
+    except Exception as e:
+        await bot.send_message(chat_id=callback.message.chat.id,
+                               text=f'Технічна помилка {e} повторіть пізніше :( /help')
+
 
