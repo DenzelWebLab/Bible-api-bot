@@ -7,11 +7,13 @@ from cllasses.query import SearchQuery
 from keyboards.inlaine_button import start_menu
 from keyboards.inlaine_button import delete_button
 from config import CONTACT
+from filters.chat_filters import ChatTypeFilter
 
 
 db = BibleData()
 sq = SearchQuery()
 router_main_handler = Router()
+router_main_handler.message.filter(ChatTypeFilter(['private']))
 
 
 @router_main_handler.message(CommandStart())

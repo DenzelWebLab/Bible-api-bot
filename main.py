@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
 from aiogram.client.session.aiohttp import AiohttpSession
 
-from config import TOKEN, PROXY
+from config import TOKEN
 from commands.bot_list_cmd import private
 from handlers.call_back_handler import router_callback_handler
 from handlers.main_handler import router_main_handler
@@ -17,7 +17,7 @@ from handlers.index_search import index_start_router
 from commands.run_stop import start_bot, stop_bot
 from admin.admin_handler import admin_router
 from commands.get_commands import commands_router
-from test import filter_router
+from filters.filter_main import filter_router
 
 
 TOKEN = TOKEN
@@ -36,8 +36,9 @@ dp.include_router(filter_router)
 
 
 async def main() -> None:
-    session = AiohttpSession(proxy=PROXY)
-    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN, session=session)
+    # session = AiohttpSession(proxy=PROXY)
+    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN)
+    bot.my_admins_list = []
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
 
@@ -47,7 +48,7 @@ async def main() -> None:
 print('run')
 
 if __name__ == "__main__":
-    # logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.INFO)
     asyncio.run(main())
 
 

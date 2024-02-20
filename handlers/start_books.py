@@ -6,10 +6,12 @@ from cllasses.main_book import BibleTree
 from cllasses.call_filters import CallFilter
 from keyboards.inlaine_button import start_menu
 from aiogram.enums import ChatAction
+from filters.chat_filters import ChatTypeFilter
 
 
 index_books = BibleTree()
 constructor_index = Router()
+constructor_index.message.filter(ChatTypeFilter(['private']))
 
 
 @constructor_index.callback_query(F.data == 'books')
