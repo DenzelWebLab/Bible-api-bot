@@ -25,7 +25,7 @@ async def start_process_index(callback: CallbackQuery, state: FSMContext):
 
 @process_state_word.message(Command("cancel"))
 @process_state_word.message(F.text.casefold() == "cancel")
-async def cancel_handler(message: Message, state: FSMContext) -> None:
+async def cancel_handler(message: Message, state: FSMContext):
     current_state = await state.get_state()
     if current_state is None:
         return
@@ -46,10 +46,4 @@ async def next_step(message: Message, state: FSMContext):
             await message.reply(text='Невірний формат', reply_markup=edit_button_word)
     except Exception as e:
         await message.reply(f'Невірний формат {e}', reply_markup=edit_button_word)
-
-
-@process_state_word.message(StateWord.query_word)
-async def process_unknown_write_bots(message: Message):
-    await message.reply(text='Я тебе не розумію :(', reply_markup=edit_button_word)
-
 

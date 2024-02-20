@@ -1,6 +1,6 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram import Router, F, Bot
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery
 
 from cllasses.main_book import BibleTree
 from cllasses.call_filters import CallFilter
@@ -26,9 +26,8 @@ async def create_book_kb(callback: CallbackQuery, bot: Bot):
     try:
         await callback.message.edit_text(text='Виберіть книгу', reply_markup=builder.as_markup())
         await callback.answer('📖')
-    except KeyError:
-        await callback.message.reply('Технічна помилка повторіть пізніше :( /help')
-        # await callback.answer()
+    except KeyError as e:
+        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'my'))
@@ -46,9 +45,8 @@ async def create_index_kb(callback: CallbackQuery, bot: Bot, callback_data: Call
     try:
         await callback.message.edit_text(text='Виберіть розділ', reply_markup=builder.as_markup())
         await callback.answer('📖')
-    except KeyError:
-        await callback.message.reply('Технічна помилка повторіть пізніше :( /help')
-        # await callback.answer()
+    except KeyError as e:
+        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'section'))
@@ -66,8 +64,8 @@ async def create_sections_kb(callback: CallbackQuery, bot: Bot, callback_data: C
     try:
         await callback.message.answer('Виберіть вірш', reply_markup=builder.as_markup())
         await callback.answer('📖')
-    except KeyError:
-        await callback.message.reply('Технічна помилка повторіть пізніше :( /help')
+    except KeyError as e:
+        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'verses'))
@@ -78,8 +76,6 @@ async def get_verses(callback: CallbackQuery, bot: Bot, callback_data: CallFilte
     try:
         await callback.message.answer(answer, reply_markup=start_menu)
         await callback.answer('📖')
-    except Exception as e:
-        await bot.send_message(chat_id=callback.message.chat.id,
-                               text=f'Технічна помилка {e} повторіть пізніше :( /help')
-
+    except KeyError as e:
+        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
 

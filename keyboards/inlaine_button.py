@@ -64,4 +64,11 @@ choice_button = InlineKeyboardMarkup(
     ]
 )
 
+weather_update = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Оновити🔄', callback_data='weather')
+        ]
+    ]
+)
 

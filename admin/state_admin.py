@@ -3,5 +3,5 @@ from aiogram.filters.state import StatesGroup, State
 
 class StateAdmins(StatesGroup):
     text = State()
-    button = State()
+    text_pic = State()
     pic = State()
