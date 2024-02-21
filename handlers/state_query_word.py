@@ -18,13 +18,13 @@ sq = SearchQuery()
 async def start_process_index(callback: CallbackQuery, state: FSMContext):
     await callback.message.answer(text='🔻Вибрана опція пошуку по ключовому слову\n'
                                        'Мова воду *українська*\n'
-                                       'Для відміни /cancel')
+                                       'Для відміни /cancelword')
     await state.set_state(StateWord.query_word)
     await callback.answer('word🔍')
 
 
-@process_state_word.message(Command("cancel"))
-@process_state_word.message(F.text.casefold() == "cancel")
+@process_state_word.message(Command("cancelword"))
+@process_state_word.message(F.text.casefold() == "cancelword")
 async def cancel_handler(message: Message, state: FSMContext):
     current_state = await state.get_state()
     if current_state is None:

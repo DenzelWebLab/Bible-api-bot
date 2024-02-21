@@ -3,21 +3,22 @@ from aiogram.types import CallbackQuery, Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
-
 from data_bases.bot_users import BibleData
 from admin.admin_keyboard import admin_button
 from admin.state_admin import StateAdmins
-from filters.chat_filters import IsAdmin
+from config import ADMIN_ID
+
 
 admin_router = Router()
-admin_router.message.filter(IsAdmin())
 db = BibleData()
 
 
 @admin_router.message(Command('admin'))
 async def create_admin_kb(message: Message):
-    await message.answer('Hi admin! select options:', reply_markup=admin_button)
-    await message.reply('Ви не адміністратор бота🔒')
+    if message.from_user.id == ADMIN_ID:
+        await message.answer(text='Hi admin! select options:', reply_markup=admin_button)
+    else:
+        await message.reply(text='Ви не адміністратор бота🔒')
 
 
 @admin_router.callback_query(F.data == 'exit')
@@ -74,4 +75,5 @@ async def add_pic(message: Message, bot: Bot, state: FSMContext):
         except exceptions.TelegramAPIError as e:
             print(f'Error type: {e}')
     await state.clear()
-    await message.answer('Message send :)')
+    await message.answer(text='Message send :)')
+

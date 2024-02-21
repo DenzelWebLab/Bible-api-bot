@@ -22,7 +22,10 @@ class BibleTree:
             index_list.append(index)
         dict_content = dict(zip(name_list, index_list))
         clear = dict(list(dict_content.items())[:-1])
-        return clear
+        try:
+            return clear
+        except KeyError as k:
+            return f'Помилка: {k}, повторіть пізніше!'
 
     def get_book(self, book_id):
         url = self.url_books + f'/v1/bibles/{BIBLE_ID}/books/{book_id}/chapters'
@@ -37,7 +40,10 @@ class BibleTree:
             id_index = items.get('id')
             id_list.append(id_index)
         dict_content = dict(zip(name_list, id_list))
-        return dict_content
+        try:
+            return dict_content
+        except KeyError as k:
+            return f'Помилка: {k}, повторіть пізніше!'
 
     def get_chapters(self, chapters_id):
         url = self.url_books + f'/v1/bibles/{BIBLE_ID}/chapters/{chapters_id}/verses'

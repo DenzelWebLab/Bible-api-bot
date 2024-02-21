@@ -17,12 +17,12 @@ wh = Weather()
 async def start_weather(callback: CallbackQuery, state: FSMContext):
     await state.set_state(StateWeather.city)
     await callback.message.answer(text='🔻Опція погода\nВедіть назву міста:\n'
-                                       'Для відміни /stop')
+                                       'Для відміни /cancelweather')
     await callback.answer('🌤')
 
 
-@weather_router.message(Command("stop"))
-@weather_router.message(F.text.casefold() == "stop")
+@weather_router.message(Command("cancelweather"))
+@weather_router.message(F.text.casefold() == "cancelweather")
 async def cancel_handler(message: Message, state: FSMContext):
     current_state = await state.get_state()
     if current_state is None:

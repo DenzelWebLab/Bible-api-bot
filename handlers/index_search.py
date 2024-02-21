@@ -21,13 +21,13 @@ async def start_index(callback: CallbackQuery, state: FSMContext):
                                        '❗️Три літери це індекс книги\n'
                                        '❗️Перша цифра це номер глави\n'
                                        '❗️Друга цифра це номер вірша\n'
-                                       '❗️для відміни /cancel')
+                                       '❗️для відміни /cancelindex')
 
     await callback.answer('🔍')
 
 
-@index_start_router.message(Command("cancel"))
-@index_start_router.message(F.text.casefold() == "cancel")
+@index_start_router.message(Command("cancelindex"))
+@index_start_router.message(F.text.casefold() == "cancelindex")
 async def cancel_handler(message: Message, state: FSMContext) -> None:
     current_state = await state.get_state()
     if current_state is None:
@@ -46,9 +46,4 @@ async def next_index_step(message: Message, state: FSMContext):
         await state.clear()
     except KeyError:
         await message.reply(text='Невірний формат', reply_markup=edit_button_index)
-
-
-@index_start_router.message(StateIndex.index)
-async def process_unknown_write_bots(message: Message):
-    await message.reply(text='Я тебе не розумію :(', reply_markup=edit_button_index)
 

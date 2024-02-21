@@ -12,8 +12,7 @@ router_callback_handler = Router()
 
 @router_callback_handler.callback_query(F.data == 'menu')
 async def call_menu(callback: CallbackQuery):
-    button = select_menu_button
-    await callback.message.edit_text(text='Виберіть кнопку', reply_markup=button)
+    await callback.message.edit_text(text='Виберіть кнопку', reply_markup=select_menu_button)
     await callback.answer('перехід в меню')
 
 
