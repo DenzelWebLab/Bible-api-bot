@@ -2,10 +2,8 @@ from aiogram import Router, F, Bot
 from aiogram.types import CallbackQuery
 
 from keyboards.inlaine_button import select_menu_button, edit_button_word, delete_button
-from cllasses.main_book import BibleTree
 from make_pass import generate_password
 
-dt = BibleTree()
 
 router_callback_handler = Router()
 
