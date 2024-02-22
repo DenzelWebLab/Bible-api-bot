@@ -8,6 +8,7 @@ from keyboards.inlaine_button import start_menu
 from keyboards.inlaine_button import delete_button
 from config import CONTACT
 from filters.chat_filters import ChatTypeFilter
+from admin.admi_filter import MyFilters
 
 
 db = BibleData()
@@ -45,3 +46,8 @@ async def get_info(callback: CallbackQuery):
 async def proces_delete(callback: CallbackQuery):
     await callback.message.delete()
     await callback.answer()
+
+
+@router_main_handler.message(MyFilters(my_text='слава богу'))
+async def test_filter(message: Message):
+    await message.reply('навіки слава')

@@ -9,7 +9,6 @@ from keyboards.inlaine_button import weather_update
 
 
 weather_router = Router()
-next_weather_step = Router()
 wh = Weather()
 
 
