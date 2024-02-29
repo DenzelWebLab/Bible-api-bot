@@ -3,7 +3,7 @@ from aiogram.types import Message
 
 
 class MyFilters(Filter):
-    def __init__(self, my_text: str):
+    def __init__(self, my_text: list):
         self.my_text = my_text
 
     async def __call__(self, message: Message):

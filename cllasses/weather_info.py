@@ -28,4 +28,3 @@ class Weather:
         weather_text += f"Швидкість вітру: {wind}м/с\n"
         weather_text += f"Вологість повітря: {humidity}%"
         return f'{weather_text}\nГарного дня :)'
-

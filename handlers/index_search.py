@@ -39,8 +39,8 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
 
 @index_start_router.message(StateIndex.index)
 async def next_index_step(message: Message, state: FSMContext):
-    index = message.text.strip()
     try:
+        index = message.text.strip()
         await state.update_data(index=index)
         answer_text = index_s.get_index(index=index)
         await message.answer(answer_text, reply_markup=edit_button_index)

@@ -32,11 +32,11 @@ async def cancel_handler(message: Message, state: FSMContext):
 
 @weather_router.message(StateWeather.city)
 async def next_step(message: Message, state: FSMContext):
-    name_city = message.text.strip()
     try:
+        name_city = message.text.strip()
         text_answer = wh.get_description(city=name_city)
         await message.answer(text_answer, reply_markup=weather_update)
         await state.clear()
     except KeyError:
-        await message.reply('Не вірний формат воду, ведіть назву міста', reply_markup=weather_update)
+        await message.reply(text='Не вірний формат воду, ведіть назву міста', reply_markup=weather_update)
 

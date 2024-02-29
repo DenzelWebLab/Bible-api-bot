@@ -72,3 +72,10 @@ weather_update = InlineKeyboardMarkup(
     ]
 )
 
+psa_button = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='')
+        ]
+    ]
+)

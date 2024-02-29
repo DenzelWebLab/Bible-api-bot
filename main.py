@@ -19,7 +19,7 @@ from commands.run_stop import start_bot, stop_bot
 from admin.admin_handler import admin_router
 from commands.get_commands import commands_router
 from filters.filter_main import filter_router
-from filters.group_chat import group_router
+from filters.group_chat import user_group_router
 
 TOKEN = TOKEN
 router = Router()
@@ -34,7 +34,8 @@ dp.include_router(index_start_router)
 dp.include_router(admin_router)
 dp.include_router(commands_router)
 dp.include_router(filter_router)
-dp.include_router(group_router)
+dp.include_router(user_group_router)
+
 
 async def main() -> None:
     # session = AiohttpSession(proxy=PROXY)
