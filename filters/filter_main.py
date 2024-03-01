@@ -14,5 +14,12 @@ async def process_unknown_write_bots(message: Message):
     await message.delete()
     await message.answer(text=f'Для взаємодії з ботом використовуй кнопки\n'
                               f'або [пиши]({CONTACT}) в чат', reply_markup=delete_button)
+
+
+@filter_router.message(F.photo)
+async def process_delete_photo(message: Message):
+    await message.delete()
+    await message.answer(text=f'Для взаємодії з ботом використовуй кнопки\n'
+                              f'або [пиши]({CONTACT}) в чат', reply_markup=delete_button)
     
 

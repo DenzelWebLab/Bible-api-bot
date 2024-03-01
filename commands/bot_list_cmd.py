@@ -6,7 +6,7 @@ private = [
     BotCommand(command='help', description='Допомога'),
     BotCommand(command='password', description='Створити пароль'),
     BotCommand(command='listindex', description='Список індексів'),
-    BotCommand(command='admin', description='admin_only🔐')
+    BotCommand(command='menu', description='Виклик меню')
 ]
 
 group = [

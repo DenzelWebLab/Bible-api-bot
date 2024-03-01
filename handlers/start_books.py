@@ -6,12 +6,10 @@ from cllasses.main_book import BibleTree
 from cllasses.call_filters import CallFilter
 from keyboards.inlaine_button import start_menu
 from aiogram.enums import ChatAction
-from filters.chat_filters import ChatTypeFilter
 
 
 index_books = BibleTree()
 constructor_index = Router()
-constructor_index.message.filter(ChatTypeFilter(['private']))
 
 
 @constructor_index.callback_query(F.data == 'books')
@@ -63,7 +61,6 @@ async def create_sections_kb(callback: CallbackQuery, bot: Bot, callback_data: C
                 callback_data=CallFilter(foo='verses', bar=j)
             )
         builder.adjust(3)
-        builder.as_markup()
         await callback.message.answer('Виберіть вірш', reply_markup=builder.as_markup())
         await callback.answer('📖')
     except KeyError as e:

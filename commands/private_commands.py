@@ -1,12 +1,12 @@
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery
-from aiogram import Router, F
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import Message
+from aiogram import Router
+
 
 from cllasses.main_book import BibleTree
 from keyboards.inlaine_button import delete_button, choice_button
 from filters.chat_filters import ChatTypeFilter
-
+from keyboards.inlaine_button import select_menu_button
 
 
 bt = BibleTree()
@@ -46,28 +46,7 @@ async def get_password(message: Message):
                               'букви і цифри потрібно буде *5 млрд. років* :)\n'
                               'Створити пароль?', reply_markup=choice_button)
 
-# !!!
-@commands_router.message(Command('psalm'))
-async def get_psa(message: Message):
-    builder = InlineKeyboardBuilder()
-    for i, j in bt.get_psalm().items():
-        builder.button(
-            text=i,
-            callback_data=j
-        )
-        builder.adjust(3)
-        builder.as_markup()
-        await message.answer('psa', reply_markup=builder.as_markup())
 
-
-@commands_router.callback_query(F.data == "PSA")
-async def get_psa_next(call: CallbackQuery):
-    builder = InlineKeyboardBuilder()
-    for i, j in range(1, 20, bt.get_psalm()):
-        builder.button(
-            text=i,
-            callback_data=j
-        )
-        builder.adjust(3)
-        await call.message.answer('psalm', reply_markup=builder.as_markup())
-        await call.answer()
+@commands_router.message(Command('menu'))
+async def get_menu(message: Message):
+    await message.answer(text='MENU:', reply_markup=select_menu_button)

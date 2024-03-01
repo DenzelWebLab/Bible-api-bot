@@ -9,7 +9,6 @@ from aiogram.client.session.aiohttp import AiohttpSession
 
 from config import TOKEN, ADMIN_ID
 from commands.bot_list_cmd import private, group
-from handlers.call_back_handler import router_callback_handler
 from handlers.main_handler import router_main_handler
 from handlers.state_query_word import process_state_word
 from handlers.start_books import constructor_index
@@ -17,7 +16,8 @@ from handlers.proces_weaher import weather_router
 from handlers.index_search import index_start_router
 from commands.run_stop import start_bot, stop_bot
 from admin.admin_handler import admin_router
-from commands.get_commands import commands_router
+from commands.private_commands import commands_router
+from commands.group_commands import grope_router
 from filters.filter_main import filter_router
 from filters.group_chat import user_group_router
 
@@ -25,7 +25,6 @@ TOKEN = TOKEN
 router = Router()
 dp = Dispatcher()
 dp.startup()
-dp.include_router(router_callback_handler)
 dp.include_router(router_main_handler)
 dp.include_router(process_state_word)
 dp.include_router(constructor_index)
@@ -33,6 +32,7 @@ dp.include_router(weather_router)
 dp.include_router(index_start_router)
 dp.include_router(admin_router)
 dp.include_router(commands_router)
+dp.include_router(grope_router)
 dp.include_router(filter_router)
 dp.include_router(user_group_router)
 
