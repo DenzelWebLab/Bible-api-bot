@@ -3,9 +3,10 @@ import logging
 
 
 from aiogram import Bot, Dispatcher, Router, types
+from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 
-from config import TOKEN
+from config import TOKEN, PROXY
 from commands.bot_list_cmd import private
 from handlers.main_handler import router_main_handler
 from handlers.state_query_word import process_state_word
@@ -33,8 +34,8 @@ dp.include_router(filter_router)
 
 
 async def main() -> None:
-    # session = AiohttpSession(proxy=PROXY)
-    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN)
+    session = AiohttpSession(proxy=PROXY)
+    bot = Bot(TOKEN, parse_mode=ParseMode.MARKDOWN, session=session)
     bot.my_admins_list = []
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
