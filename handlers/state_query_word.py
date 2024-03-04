@@ -6,7 +6,7 @@ from aiogram.types import CallbackQuery, Message
 
 from states.save_state_bot import StateWord
 from cllasses.query import SearchQuery
-from keyboards.inlaine_button import edit_button_word
+from keyboards.inlaine_button import edit_button_word, select_menu_button
 
 
 process_state_word = Router()
@@ -18,19 +18,19 @@ sq = SearchQuery()
 async def start_process_index(callback: CallbackQuery, state: FSMContext):
     await callback.message.answer(text='🔻Вибрана опція пошуку по ключовому слову\n'
                                        'Мова воду *українська*\n'
-                                       'Для відміни /cancelword')
+                                       'Для відміни /cancel')
     await state.set_state(StateWord.query_word)
     await callback.answer('word🔍')
 
 
-@process_state_word.message(Command("cancelword"))
-@process_state_word.message(F.text.casefold() == "cancelword")
+@process_state_word.message(Command("cancel"))
+@process_state_word.message(F.text.casefold() == "cancel")
 async def cancel_handler(message: Message, state: FSMContext):
     current_state = await state.get_state()
     if current_state is None:
         return
     await state.clear()
-    await message.answer(text='Відмінено', reply_markup=edit_button_word)
+    await message.answer(text='*Відмінено*, виберіть дію', reply_markup=select_menu_button)
 
 
 @process_state_word.message(StateWord.query_word)

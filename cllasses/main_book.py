@@ -37,10 +37,7 @@ class BibleTree:
             id_index = items.get('id')
             id_list.append(id_index)
         dict_content = dict(zip(name_list, id_list))
-        try:
-            return dict_content
-        except KeyError as k:
-            return f'Помилка: {k}, повторіть пізніше!'
+        return dict_content
 
     def get_chapters(self, chapters_id):
         url = self.url_books + f'/v1/bibles/{BIBLE_ID}/chapters/{chapters_id}/verses'
@@ -64,10 +61,11 @@ class BibleTree:
         response = requests.get(url=url, headers=BIBLE_KEY)
         data = response.json()
         list_text = []
+        name = data['data']['reference']
         content = data['data']['content']
         list_text.append(content)
-        full = ' '.join(list_text)
-        return full
+        full = ''.join(list_text).strip()
+        return f'{name}\n{full}'
 
     def get_psalm(self):
         url = self.url_books + f'/v1/bibles/{BIBLE_ID}/books'

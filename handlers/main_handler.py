@@ -7,13 +7,11 @@ from cllasses.query import SearchQuery
 from keyboards.inlaine_button import start_menu, edit_button_word
 from keyboards.inlaine_button import delete_button, select_menu_button
 from config import CONTACT
-from filters.chat_filters import ChatTypeFilter
-from make_pass import generate_password
+from function.make_pass import generate_password
 
 db = BibleData()
 sq = SearchQuery()
 router_main_handler = Router()
-router_main_handler.message.filter(ChatTypeFilter(['private']))
 
 
 @router_main_handler.message(CommandStart())
@@ -42,9 +40,12 @@ async def process_edit_message(callback: CallbackQuery):
 
 @router_main_handler.callback_query(F.data == 'pro')
 async def get_copyright(callback: CallbackQuery):
-    answer_text = sq.get_right()
-    await callback.message.answer(text=answer_text, reply_markup=delete_button)
-    await callback.answer('✅')
+    try:
+        answer_text = sq.get_right()
+        await callback.message.answer(text=answer_text, reply_markup=delete_button)
+        await callback.answer('✅')
+    except Exception as e:
+        await callback.message.reply(text=f'Технічна помилка {e} повторіть пізніше :( /help')
 
 
 @router_main_handler.callback_query(F.data == 'yes')

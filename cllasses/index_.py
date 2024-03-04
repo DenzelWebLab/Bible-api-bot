@@ -14,5 +14,6 @@ class IndexSearch:
                           f'-verse-spans=false&use-org-id=false')
         response = requests.get(url=url, headers=BIBLE_KEY)
         data = response.json()
+        name = data['data']['reference']
         content = data['data']['content']
-        return content
+        return f'{name}\n{content}'

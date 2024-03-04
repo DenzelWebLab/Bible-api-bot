@@ -4,22 +4,11 @@ from aiogram import Router
 
 
 from cllasses.main_book import BibleTree
-from keyboards.inlaine_button import delete_button, choice_button
-from filters.chat_filters import ChatTypeFilter
-from keyboards.inlaine_button import select_menu_button
+from keyboards.inlaine_button import delete_button, choice_button, select_menu_button
 
 
 bt = BibleTree()
 commands_router = Router()
-commands_router.message.filter(ChatTypeFilter(['private']))
-
-
-@commands_router.message(Command('list_index'))
-async def get_list_index(message: Message):
-    for i, j in bt.get_name().items():
-        key = i
-        values = j
-        await message.answer(text=f'Індекс книги {key}: {values}')
 
 
 @commands_router.message(Command('help'))

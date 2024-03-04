@@ -8,17 +8,21 @@ class SearchQuery:
         self.bible_id = BIBLE_ID
         self.url = BIBLE_URL
 
-    def get_data(self, query):
+    def get_data(self, query: str):
         url = self.url + f'/v1/bibles/{self.bible_id}/search?query={query}&sort=relevance'
         response = requests.get(url, headers=BIBLE_KEY)
         data = response.json()
         content = data['data']['verses']
-        d = []
+        list_name = []
+        list_verses = []
         for item in content:
+            name = item.get('reference')
+            list_name.append(name)
             book = item.get('text')
-            d.append(book)
-        text = '\n'.join(d)
-        return text
+            list_verses.append(book)
+        text_name = '\n'.join(list_name)
+        text = '\n'.join(list_verses)
+        return f'{text}\n{text_name}'
 
     def get_right(self):
         url = self.url + (f'/v1/bibles/{BIBLE_ID}/verses/MAT.1.3?content-type=json&include-notes=false&include'
@@ -28,4 +32,3 @@ class SearchQuery:
         data = response.json()
         content = data['data']['copyright']
         return content
-

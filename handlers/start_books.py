@@ -27,7 +27,7 @@ async def create_book_kb(callback: CallbackQuery, bot: Bot):
         await callback.message.edit_text(text='Виберіть книгу', reply_markup=builder.as_markup())
         await callback.answer('📖')
     except KeyError as e:
-        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
+        await callback.message.reply(text=f'Технічна помилка {e} повторіть пізніше :( /help')
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'my'))
@@ -46,7 +46,7 @@ async def create_index_kb(callback: CallbackQuery, bot: Bot, callback_data: Call
         await callback.message.edit_text(text='Виберіть розділ', reply_markup=builder.as_markup())
         await callback.answer('📖')
     except KeyError as e:
-        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
+        await callback.message.reply(text=f'Технічна помилка {e} повторіть пізніше :( /help')
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'section'))
@@ -61,10 +61,10 @@ async def create_sections_kb(callback: CallbackQuery, bot: Bot, callback_data: C
                 callback_data=CallFilter(foo='verses', bar=j)
             )
         builder.adjust(3)
-        await callback.message.answer('Виберіть вірш', reply_markup=builder.as_markup())
+        await callback.message.edit_text(text='Виберіть вірш', reply_markup=builder.as_markup())
         await callback.answer('📖')
     except KeyError as e:
-        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
+        await callback.message.reply(text=f'Технічна помилка {e} повторіть пізніше :( /help')
 
 
 @constructor_index.callback_query(CallFilter.filter(F.foo == 'verses'))
@@ -73,8 +73,8 @@ async def get_verses(callback: CallbackQuery, bot: Bot, callback_data: CallFilte
         await bot.send_chat_action(callback.message.chat.id, ChatAction.TYPING)
         verses = callback_data.bar.split('_')[0]
         answer = index_books.get_text_verses(verses=verses)
-        await callback.message.answer(answer, reply_markup=start_menu)
+        await callback.message.answer(text=answer, reply_markup=start_menu)
         await callback.answer('📖')
     except KeyError as e:
-        await callback.message.reply(f'Технічна помилка {e} повторіть пізніше :( /help')
+        await callback.message.reply(text=f'Технічна помилка {e} повторіть пізніше :( /help')
 

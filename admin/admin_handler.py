@@ -6,8 +6,7 @@ from aiogram.fsm.context import FSMContext
 from data_bases.bot_users import BibleData
 from admin.admin_keyboard import admin_button
 from admin.state_admin import StateAdmins
-from config import ADMIN_ID
-
+from config import ADMIN_ID, GROUP_ID
 
 admin_router = Router()
 db = BibleData()
@@ -76,4 +75,22 @@ async def add_pic(message: Message, bot: Bot, state: FSMContext):
             print(f'Error type: {e}')
     await state.clear()
     await message.answer(text='Message send :)')
+
+
+@admin_router.callback_query(F.data == 'group')
+async def get_text_group(call: CallbackQuery, state: FSMContext):
+    await state.set_state(StateAdmins.group_text)
+    await call.message.answer(text='Ok send me text for group')
+    await call.answer()
+
+
+@admin_router.message(StateAdmins.group_text)
+async def next_step_group(mess: Message, bot: Bot, state: FSMContext):
+    try:
+        group_text = mess.text.strip()
+        await bot.send_message(chat_id=GROUP_ID, text=group_text)
+        await state.clear()
+    except Exception as e:
+        await mess.answer(f'Error {e}')
+
 
