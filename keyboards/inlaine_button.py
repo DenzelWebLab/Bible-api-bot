@@ -20,7 +20,6 @@ select_menu_button = InlineKeyboardMarkup(
             InlineKeyboardButton(text='Пошук по індексу🔍', callback_data='index')
         ],
         [
-            InlineKeyboardButton(text='Яка сьогодні погода⛅️', callback_data='weather'),
             InlineKeyboardButton(text='Stickers🎁', url='https://t.me/addstickers/Hollytext')
         ],
         [
@@ -60,22 +59,6 @@ choice_button = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text='Так', callback_data='yes'),
             InlineKeyboardButton(text='Ні', callback_data='no')
-        ]
-    ]
-)
-
-weather_update = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(text='Оновити🔄', callback_data='weather')
-        ]
-    ]
-)
-
-psa_button = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(text='')
         ]
     ]
 )

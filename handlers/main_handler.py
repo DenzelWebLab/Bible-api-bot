@@ -7,7 +7,7 @@ from cllasses.query import SearchQuery
 from keyboards.inlaine_button import start_menu, edit_button_word
 from keyboards.inlaine_button import delete_button, select_menu_button
 from config import CONTACT
-from function.make_pass import generate_password
+
 
 db = BibleData()
 sq = SearchQuery()
@@ -46,19 +46,6 @@ async def get_copyright(callback: CallbackQuery):
         await callback.answer('✅')
     except Exception as e:
         await callback.message.reply(text=f'Технічна помилка {e} повторіть пізніше :( /help')
-
-
-@router_main_handler.callback_query(F.data == 'yes')
-async def proces_password(callback: CallbackQuery):
-    await callback.message.answer('Ваш пароль')
-    await callback.message.answer(generate_password(length=14), reply_markup=delete_button)
-    await callback.answer('✅')
-
-
-@router_main_handler.callback_query(F.data == 'no')
-async def proces_cancel(callback: CallbackQuery):
-    await callback.message.delete()
-    await callback.answer()
 
 
 @router_main_handler.callback_query(F.data == 'info')
