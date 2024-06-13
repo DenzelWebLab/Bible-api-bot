@@ -3,7 +3,7 @@ from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 from aiogram import Router, F
 
-import list_index
+from utils import list_index
 from states.save_state_bot import StateIndex
 from cllasses.index_ import IndexSearch
 from keyboards.inlaine_button import edit_button_index, select_menu_button
