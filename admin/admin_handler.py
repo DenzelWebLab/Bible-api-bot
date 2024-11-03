@@ -1,4 +1,4 @@
-from aiogram import Bot, Router, F, exceptions
+from aiogram import Bot, Router, F
 from aiogram.types import CallbackQuery, Message
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
@@ -7,9 +7,13 @@ from data_bases.bot_users import BibleData
 from admin.admin_keyboard import admin_button
 from admin.state_admin import StateAdmins
 from config import ADMIN_ID, GROUP_ID
+from filters.checktype_chat import ChatTypeFilter
+from aiogram.exceptions import TelegramForbiddenError
 
 admin_router = Router()
 db = BibleData()
+
+admin_router.message.filter(ChatTypeFilter(['private']))
 
 
 @admin_router.message(Command('admin'))
@@ -71,8 +75,8 @@ async def add_pic(message: Message, bot: Bot, state: FSMContext):
     for user_id in users:
         try:
             await bot.send_photo(user_id[0], photo, caption=text)
-        except exceptions.TelegramAPIError as e:
-            print(f'Error type: {e}')
+        except TelegramForbiddenError:
+            await message.answer(text='user block bot')
     await state.clear()
     await message.answer(text='Message send :)')
 

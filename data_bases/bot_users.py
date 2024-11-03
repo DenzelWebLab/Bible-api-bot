@@ -29,5 +29,8 @@ class BibleData:
                 ''', (user_id, first_name, user_name))
             self.connection.commit()
 
+    def get_users(self):
+        ...
+
     def closed(self):
         self.connection.close()

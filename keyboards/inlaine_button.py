@@ -1,14 +1,5 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-
-start_menu = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(text='Меню📁', callback_data='menu')
-        ]
-    ]
-)
-
 select_menu_button = InlineKeyboardMarkup(
     inline_keyboard=[
         [
@@ -23,7 +14,8 @@ select_menu_button = InlineKeyboardMarkup(
             InlineKeyboardButton(text='Stickers🎁', url='https://t.me/addstickers/Hollytext')
         ],
         [
-            InlineKeyboardButton(text='Про UaBible', callback_data='pro')
+            InlineKeyboardButton(text='Про UaBible', callback_data='pro'),
+            InlineKeyboardButton(text='add', url='https://t.me/ukr_bible_bot?startgroup=true')
         ]
     ]
 )
@@ -50,15 +42,6 @@ delete_button = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text='Зрозуміло✅', callback_data='delete')
-        ]
-    ]
-)
-
-choice_button = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(text='Так', callback_data='yes'),
-            InlineKeyboardButton(text='Ні', callback_data='no')
         ]
     ]
 )
